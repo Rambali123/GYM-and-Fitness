@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Membership Plans{% endblock %}
+{% block content %}
+<h2>Membership Plans</h2>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:20px;">
+    {% for p in plans %}
+    <div class="card" style="text-align:center;">
+        <h3 style="color:#e84393;">{{ p.name }}</h3>
+        <p style="font-size:32px; font-weight:700; color:#2d3436; margin:10px 0;">€{{ p.price }}</p>
+        <p style="color:#888; font-size:13px;">{{ p.duration_days }} days</p>
+        <p style="margin:12px 0; font-size:14px;">{{ p.description }}</p>
+        <a href="{{ url_for('subscribe', plan_id=p.id) }}" class="btn btn-green">Subscribe Now</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
