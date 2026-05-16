@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Manage Trainers{% endblock %}
+{% block content %}
+<h2>Trainers</h2>
+
+<div class="card">
+    <h3>Add Trainer</h3>
+    <form method="POST">
+        <div class="form-row">
+            <div><label>Full Name</label><input type="text" name="full_name" required></div>
+            <div><label>Specialisation</label><input type="text" name="specialisation" placeholder="e.g. Yoga, CrossFit"></div>
+        </div>
+        <div class="form-row">
+            <div><label>Phone</label><input type="text" name="phone"></div>
+            <div><label>Hourly Rate (₹)</label><input type="number" step="0.01" name="hourly_rate" value="500"></div>
+        </div>
+        <button type="submit" class="btn btn-teal">Add Trainer</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Trainers</h3>
+    <table>
+        <tr><th>Name</th><th>Specialisation</th><th>Phone</th><th>Rate/hr</th><th>Action</th></tr>
+        {% for t in trainers %}
+        <tr>
+            <td>{{ t.full_name }}</td>
+            <td>{{ t.specialisation or '-' }}</td>
+            <td>{{ t.phone or '-' }}</td>
+            <td>€{{ t.hourly_rate }}</td>
+            <td><a href="{{ url_for('delete_trainer', trainer_id=t.id) }}" class="btn btn-red">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

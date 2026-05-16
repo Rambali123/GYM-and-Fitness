@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Manage Classes{% endblock %}
+{% block content %}
+<h2>Class & Activity Scheduling</h2>
+
+<div class="card">
+    <h3>Add New Class</h3>
+    <form method="POST">
+        <div class="form-row">
+            <div><label>Class Name</label><input type="text" name="name" required></div>
+            <div>
+                <label>Assign Trainer</label>
+                <select name="trainer_id">
+                    <option value="">-- No Trainer --</option>
+                    {% for t in trainers %}
+                    <option value="{{ t.id }}">{{ t.full_name }} ({{ t.specialisation }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <label>Description</label>
+        <textarea name="description"></textarea>
+        <div class="form-row">
+            <div><label>Date</label><input type="date" name="schedule_date" required></div>
+            <div><label>Max Capacity</label><input type="number" name="max_capacity" value="20"></div>
+        </div>
+        <div class="form-row">
+            <div><label>Start Time</label><input type="time" name="start_time" required></div>
+            <div><label>End Time</label><input type="time" name="end_time" required></div>
+        </div>
+        <button type="submit" class="btn btn-blue">Add Class</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Classes</h3>
+    <table>
+        <tr><th>Class</th><th>Date</th><th>Time</th><th>Trainer</th><th>Enrolled</th><th>Action</th></tr>
+        {% for c in classes %}
+        <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.schedule_date }}</td>
+            <td>{{ c.start_time }} - {{ c.end_time }}</td>
+            <td>{{ c.trainer_name or 'Unassigned' }}</td>
+            <td>{{ c.enrolled }}/{{ c.max_capacity }}</td>
+            <td><a href="{{ url_for('delete_class', class_id=c.id) }}" class="btn btn-red">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
