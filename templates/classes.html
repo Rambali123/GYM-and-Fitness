@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Classes{% endblock %}
+{% block content %}
+<h2>Available Classes</h2>
+<div class="card">
+    <table>
+        <tr><th>Class</th><th>Date</th><th>Time</th><th>Trainer</th><th>Spots</th><th>Action</th></tr>
+        {% for c in classes %}
+        <tr>
+            <td><strong>{{ c.name }}</strong><br><small style="color:#888;">{{ c.description }}</small></td>
+            <td>{{ c.schedule_date }}</td>
+            <td>{{ c.start_time }} - {{ c.end_time }}</td>
+            <td>{{ c.trainer_name or 'TBA' }}</td>
+            <td>{{ c.enrolled }}/{{ c.max_capacity }}</td>
+            <td>
+                {% if c.id in my_ids %}
+                    <a href="{{ url_for('cancel_class', class_id=c.id) }}" class="btn btn-orange">Cancel</a>
+                {% elif c.enrolled < c.max_capacity %}
+                    <a href="{{ url_for('register_class', class_id=c.id) }}" class="btn btn-blue">Join</a>
+                {% else %}
+                    <span class="btn btn-red" style="opacity:0.6; cursor:default;">Full</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
