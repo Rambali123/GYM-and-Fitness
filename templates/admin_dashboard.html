@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<div class="stat-grid">
+    <div class="stat-card" style="background:#6c5ce7;">
+        <h3>{{ members }}</h3><p>Total Members</p>
+    </div>
+    <div class="stat-card" style="background:#00b894;">
+        <h3>{{ subs }}</h3><p>Active Subscriptions</p>
+    </div>
+    <div class="stat-card" style="background:#0984e3;">
+        <h3>{{ upcoming }}</h3><p>Upcoming Classes</p>
+    </div>
+    <div class="stat-card" style="background:#e17055;">
+        <h3>{{ trainers }}</h3><p>Trainers</p>
+    </div>
+</div>
+
+<div class="card" style="margin-top:20px;">
+    <h3>Quick Actions</h3>
+    <a href="{{ url_for('admin_members') }}" class="btn btn-purple">Manage Members</a>
+    <a href="{{ url_for('admin_classes') }}" class="btn btn-blue">Manage Classes</a>
+    <a href="{{ url_for('admin_trainers') }}" class="btn btn-green">Manage Trainers</a>
+    <a href="{{ url_for('admin_hours') }}" class="btn btn-orange">Log Hours</a>
+    <a href="{{ url_for('admin_plans') }}" class="btn btn-pink">Manage Plans</a>
+</div>
+{% endblock %}

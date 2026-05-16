@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Manage Members{% endblock %}
+{% block content %}
+<h2>All Members</h2>
+<div class="card">
+    <table>
+        <tr><th>Name</th><th>Email</th><th>Phone</th><th>Plan</th><th>Expires</th></tr>
+        {% for m in members %}
+        <tr>
+            <td>{{ m.full_name }}</td>
+            <td>{{ m.email }}</td>
+            <td>{{ m.phone or '-' }}</td>
+            <td>{{ m.plan_name or 'None' }}</td>
+            <td>{{ m.end_date or '-' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

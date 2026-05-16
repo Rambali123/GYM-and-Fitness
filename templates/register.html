@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="card" style="max-width:420px; margin:60px auto;">
+    <h2>Create Account</h2>
+    <form method="POST">
+        <label>Full Name</label>
+        <input type="text" name="full_name" required>
+        <label>Email</label>
+        <input type="email" name="email" required>
+        <label>Phone</label>
+        <input type="text" name="phone">
+        <label>Password</label>
+        <input type="password" name="password" required minlength="6">
+        <button type="submit" class="btn btn-green" style="width:100%; padding:12px;">Register</button>
+    </form>
+    <p style="margin-top:14px; font-size:13px; text-align:center;">
+        Already have an account? <a href="{{ url_for('login') }}" style="color:#6c5ce7;">Login</a>
+    </p>
+</div>
+{% endblock %}

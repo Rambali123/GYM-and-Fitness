@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Welcome, {{ session.user_name }}</h2>
+
+<div class="card">
+    <h3>My Subscription</h3>
+    {% if subscription %}
+        <p><strong>Plan:</strong> {{ subscription.plan_name }}</p>
+        <p><strong>Valid:</strong> {{ subscription.start_date }} to {{ subscription.end_date }}</p>
+        <p><strong>Status:</strong>
+            <span class="badge badge-{{ subscription.status }}">{{ subscription.status }}</span>
+        </p>
+        <p><strong>Paid:</strong> €{{ subscription.price }}</p>
+    {% else %}
+        <p>No active subscription.
+            <a href="{{ url_for('plans') }}" class="btn btn-green">Browse Plans</a>
+        </p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>My Upcoming Classes</h3>
+    {% if my_classes %}
+    <table>
+        <tr><th>Class</th><th>Date</th><th>Time</th><th>Trainer</th></tr>
+        {% for c in my_classes %}
+        <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.schedule_date }}</td>
+            <td>{{ c.start_time }} - {{ c.end_time }}</td>
+            <td>{{ c.trainer_name or 'TBA' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No upcoming classes.
+            <a href="{{ url_for('view_classes') }}" style="color:#0984e3;">Browse classes</a>
+        </p>
+    {% endif %}
+</div>
+{% endblock %}
